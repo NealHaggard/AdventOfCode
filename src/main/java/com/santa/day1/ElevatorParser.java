@@ -44,7 +44,7 @@ public class ElevatorParser {
      * @return index in the instruction that the level would be in the basement
      */
     public static int notifyBasement(int base, String instructions) {
-        return IntStream.range(1, instructions.length() + 1)
+        return IntStream.range(0, instructions.length() + 1)
                 .filter(i -> parse(base, instructions.substring(0, i)) < 0)
                 .findFirst().orElse(-1);
     }

@@ -68,11 +68,10 @@ public class Present {
      * @return distance in feet
      */
     protected int shortestPerimeter() {
-        Integer[] xs = dimensions.stream()
-                .sorted((d1, d2) -> Integer.compare(d1.getX(), d2.getX()))
-                .map(Dimension::getX)
-                .toArray(Integer[]::new);
-
-        return xs[0] * 2 + xs[1] * 2;
+        return dimensions.stream()
+                .mapToInt(Dimension::getX)
+                .sorted()
+                .limit(2)
+                .reduce(0, (total, x) -> total + 2 * x);
     }
 }

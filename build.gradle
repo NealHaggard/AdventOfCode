@@ -8,10 +8,12 @@ version = '1.0-SNAPSHOT'
 description = 'AdventOfCode'
 
 repositories {
+    mavenCentral()
     maven { url "http://repo.maven.apache.org/maven2" }
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version:'4.12'
     compile "org.projectlombok:lombok:1.16.6"
+    compile group: 'com.google.guava', name: 'guava', version: '12.0'
 }

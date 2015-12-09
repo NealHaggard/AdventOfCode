@@ -15,12 +15,12 @@ public class WrappingCalculatorTest {
 
     @Test
     public void should_calculate_dimensions_for_2x3x4() {
-        assertEquals(58, WrappingCalculator.calculateNeededWrappingPaper("2x3x4"));
+        assertEquals(58, WrappingCalculator.calculateNeededWrappingPaper(new Present("2x3x4")));
     }
 
     @Test
     public void should_calculate_dimensions_for_1x1x10() {
-        assertEquals(43, WrappingCalculator.calculateNeededWrappingPaper("1x1x10"));
+        assertEquals(43, WrappingCalculator.calculateNeededWrappingPaper(new Present("1x1x10")));
     }
 
     @Test

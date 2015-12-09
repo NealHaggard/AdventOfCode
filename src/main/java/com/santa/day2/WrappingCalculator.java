@@ -1,8 +1,5 @@
 package com.santa.day2;
 
-import java.util.List;
-
-import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.stream;
 
 /**
@@ -39,40 +36,21 @@ public class WrappingCalculator {
      * @return area in square feet of wrapping paper needed to cover all of the presents
      */
     public static int calculateTotalWrappingPaperArea(String[] input) {
-        return stream(input).mapToInt(WrappingCalculator::calculateNeededWrappingPaper).sum();
+        return stream(input).map(Present::new).mapToInt(WrappingCalculator::calculateNeededWrappingPaper).sum();
     }
 
     /**
      * Calculate the needed wrapping paper for one present, including slack based on the area of the smallest side.
      *
-     * @param input String holding the size of the present in the form lxwxh, in feet
+     * @param present Present
      * @return square feet needed to wrap the present
      */
-    protected static int calculateNeededWrappingPaper(String input) {
-        Integer[] parsedDims = parse(input);
-
-        Dimension dim1 = new Dimension(parsedDims[0], parsedDims[1]);
-        Dimension dim2 = new Dimension(parsedDims[1], parsedDims[2]);
-        Dimension dim3 = new Dimension(parsedDims[2], parsedDims[0]);
-        List<Dimension> dimensions = newArrayList(dim1, dim2, dim3);
-
-        return dimensions.stream().mapToInt(dimension -> 2 * dimension.area()).sum() +
-                dimensions.stream()
+    protected static int calculateNeededWrappingPaper(Present present) {
+        return present.getDimensions().stream().mapToInt(dimension -> 2 * dimension.area()).sum() +
+                present.getDimensions().stream()
                         .sorted((d1, d2) -> Integer.compare(d1.area(), d2.area()))
                         .findFirst()
                         .orElse(new Dimension())
                         .area();
-    }
-
-    /**
-     * Split apart an input on 'x' to get an array of dimensions.
-     *
-     * @param input String holding the size of the present in the form lxwxh, in feet
-     * @return array of integers
-     */
-    private static Integer[] parse(String input) {
-        return stream(input.split("x"))
-                .map(Integer::valueOf)
-                .toArray(Integer[]::new);
     }
 }

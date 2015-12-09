@@ -1,5 +1,7 @@
 package com.santa.day2;
 
+import java.util.stream.Stream;
+
 import static java.util.Arrays.stream;
 
 /**
@@ -36,21 +38,29 @@ public class WrappingCalculator {
      * @return area in square feet of wrapping paper needed to cover all of the presents
      */
     public static int calculateTotalWrappingPaperArea(String[] input) {
-        return stream(input).map(Present::new).mapToInt(WrappingCalculator::calculateNeededWrappingPaper).sum();
+        return convertToPresents(input).mapToInt(Present::wrappingPaperNeeded).sum();
     }
 
     /**
-     * Calculate the needed wrapping paper for one present, including slack based on the area of the smallest side.
+     * Given an array of Strings representing the dimensions of a bunch of presents, figure out the total length of
+     * ribbon needed to wrap the presents.
+     * <p>
+     * Calculated as the shortest perimeter plus the volume of the present for the bow.
      *
-     * @param present Present
-     * @return square feet needed to wrap the present
+     * @param input Array of strings
+     * @return length in feet of ribbon needed to wrap all the presents
      */
-    protected static int calculateNeededWrappingPaper(Present present) {
-        return present.getDimensions().stream().mapToInt(dimension -> 2 * dimension.area()).sum() +
-                present.getDimensions().stream()
-                        .sorted((d1, d2) -> Integer.compare(d1.area(), d2.area()))
-                        .findFirst()
-                        .orElse(new Dimension())
-                        .area();
+    public static int calculateTotalRibbonLength(String[] input) {
+        return convertToPresents(input).mapToInt(Present::ribbonNeeded).sum();
+    }
+
+    /**
+     * Create presents from input.
+     *
+     * @param input Array of strings
+     * @return Stream of Present objects
+     */
+    private static Stream<Present> convertToPresents(String[] input) {
+        return stream(input).map(Present::new);
     }
 }

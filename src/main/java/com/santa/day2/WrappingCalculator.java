@@ -2,8 +2,6 @@ package com.santa.day2;
 
 import java.util.stream.Stream;
 
-import static java.util.Arrays.stream;
-
 /**
  * --- Day 2: I Was Told There Would Be No Math ---
  * <p>
@@ -34,10 +32,10 @@ public class WrappingCalculator {
      * <p>
      * Calculated from the 2 * area of each side plus slack equal to the area of the smallest side.
      *
-     * @param input Array of strings
+     * @param input Stream of Strings
      * @return area in square feet of wrapping paper needed to cover all of the presents
      */
-    public static int calculateTotalWrappingPaperArea(String[] input) {
+    public static int calculateTotalWrappingPaperArea(Stream<String> input) {
         return convertToPresents(input).mapToInt(Present::wrappingPaperNeeded).sum();
     }
 
@@ -47,20 +45,20 @@ public class WrappingCalculator {
      * <p>
      * Calculated as the shortest perimeter plus the volume of the present for the bow.
      *
-     * @param input Array of strings
+     * @param input Stream of Strings
      * @return length in feet of ribbon needed to wrap all the presents
      */
-    public static int calculateTotalRibbonLength(String[] input) {
+    public static int calculateTotalRibbonLength(Stream<String> input) {
         return convertToPresents(input).mapToInt(Present::ribbonNeeded).sum();
     }
 
     /**
      * Create presents from input.
      *
-     * @param input Array of strings
+     * @param input Stream of strings
      * @return Stream of Present objects
      */
-    private static Stream<Present> convertToPresents(String[] input) {
-        return stream(input).map(Present::new);
+    private static Stream<Present> convertToPresents(Stream<String> input) {
+        return input.map(Present::new);
     }
 }

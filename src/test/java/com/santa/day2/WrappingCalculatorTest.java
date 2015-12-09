@@ -4,6 +4,9 @@ import com.santa.elves.FileHelper;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.stream.Stream;
+
+import static java.util.Arrays.stream;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -15,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 public class WrappingCalculatorTest {
     private static String[] PRESENTS = new String[]{"2x3x4", "1x1x10"};
 
-    private String[] testInput;
+    private Stream<String> testInput;
 
     @Before
     public void setup() throws Exception {
@@ -24,7 +27,7 @@ public class WrappingCalculatorTest {
 
     @Test
     public void should_calculate_wrapping_paper_for_two() {
-        assertEquals(101, WrappingCalculator.calculateTotalWrappingPaperArea(PRESENTS));
+        assertEquals(101, WrappingCalculator.calculateTotalWrappingPaperArea(stream(PRESENTS)));
     }
 
     @Test
@@ -34,7 +37,7 @@ public class WrappingCalculatorTest {
 
     @Test
     public void should_calculate_ribbon_for_two() {
-        assertEquals(48, WrappingCalculator.calculateTotalRibbonLength(PRESENTS));
+        assertEquals(48, WrappingCalculator.calculateTotalRibbonLength(stream(PRESENTS)));
     }
 
     @Test

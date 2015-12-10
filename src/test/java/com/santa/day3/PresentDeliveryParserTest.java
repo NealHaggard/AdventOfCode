@@ -42,4 +42,26 @@ public class PresentDeliveryParserTest {
         assertEquals(2565, FileHelper.readLines("src/test/java/com/santa/day3/puzzleInput.txt")
                 .mapToInt(directions -> parser.deliver(0, 0, directions)).sum());
     }
+
+    // Part 2
+    @Test
+    public void verify_example_2_1() {
+        assertEquals(3, parser.doubleDelivery(0, 0, "^v"));
+    }
+
+    @Test
+    public void verify_example_2_2() {
+        assertEquals(3, parser.doubleDelivery(0, 0, "^>v<"));
+    }
+
+    @Test
+    public void verify_example_2_3() {
+        assertEquals(11, parser.doubleDelivery(0, 0, "^v^v^v^v^v"));
+    }
+
+    @Test
+    public void verify_part2() throws IOException {
+        assertEquals(2639, FileHelper.readLines("src/test/java/com/santa/day3/puzzleInput.txt")
+                .mapToInt(directions -> parser.doubleDelivery(0, 0, directions)).sum());
+    }
 }

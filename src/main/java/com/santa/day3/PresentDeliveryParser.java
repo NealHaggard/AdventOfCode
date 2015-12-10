@@ -26,7 +26,6 @@ import java.util.Set;
 public class PresentDeliveryParser {
 
     private Set<Home> homes = new HashSet<>();
-    private Home current;
 
     /**
      * Parse instructions and deliver presents.
@@ -37,13 +36,46 @@ public class PresentDeliveryParser {
      * @return number of homes that received at least one present
      */
     public int deliver(int startX, int startY, String directions) {
-        current = new Home(startX, startY);
+        Home current = new Home(startX, startY);
         homes.add(current);
 
         for (int index = 0; index < directions.length(); index++) {
             Home newHome = parseDir(current, directions.charAt(index));
             homes.add(newHome);
             current = newHome;
+        }
+
+        return homes.size();
+    }
+
+    /**
+     * The next year, to speed up the process, Santa creates a robot version of himself, Robo-Santa, to deliver
+     * presents with him.
+     * *
+     * Santa and Robo-Santa start at the same location (delivering two presents to the same starting house),
+     * then take turns moving based on instructions from the elf, who is eggnoggedly reading from the same script as
+     * the previous year.
+     * <p>
+     * This year, how many houses receive at least one present?
+     *
+     * @param startX     Origin X
+     * @param startY     Origin Y
+     * @param directions directions to follow
+     * @return number of homes that received at least one present
+     */
+    public int doubleDelivery(int startX, int startY, String directions) {
+        Home santaCurrent = new Home(startX, startY);
+        Home roboSantaCurrent = santaCurrent;
+        homes.add(santaCurrent);
+
+        for (int index = 0; index < directions.length(); index += 2) {
+            Home newHome = parseDir(santaCurrent, directions.charAt(index));
+            homes.add(newHome);
+            santaCurrent = newHome;
+
+            newHome = parseDir(roboSantaCurrent, directions.charAt(index + 1));
+            homes.add(newHome);
+            roboSantaCurrent = newHome;
         }
 
         return homes.size();
